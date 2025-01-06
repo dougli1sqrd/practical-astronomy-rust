@@ -1,3 +1,7 @@
+use alloc::string::String;
+use alloc::string::ToString;
+use alloc::vec::Vec;
+
 /// Info about a planet:
 /// * `name` -- Name of planet.
 /// * `tp` -- Period of orbit.

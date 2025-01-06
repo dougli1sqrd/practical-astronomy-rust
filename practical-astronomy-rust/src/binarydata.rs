@@ -1,3 +1,7 @@
+use alloc::string::String;
+use alloc::string::ToString;
+use alloc::vec::Vec;
+
 /// Info about a binary system:
 /// * `name` -- Name of binary system.
 /// * `period` -- Period of the orbit.

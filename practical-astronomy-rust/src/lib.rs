@@ -1,3 +1,7 @@
+#![cfg_attr(not(test), no_std)]
+
+extern crate alloc;
+
 pub mod binary;
 mod binarydata;
 pub mod comet;

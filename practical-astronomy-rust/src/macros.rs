@@ -1,6 +1,11 @@
 use crate::types as pa_t;
 use crate::util as pa_u;
 
+use alloc::string::String;
+use alloc::string::ToString;
+use alloc::vec::Vec;
+use core_maths::CoreFloat;
+
 /// Convert a Civil Time (hours,minutes,seconds) to Decimal Hours.
 ///
 /// Original macro name: HMSDH
@@ -2967,11 +2972,11 @@ pub fn planet_coordinates(
     });
 
     let mut li = 0.0;
-    let _tp = 2.0 * std::f64::consts::PI;
+    let _tp = 2.0 * core::f64::consts::PI;
     let ms = sun_mean_anomaly(lh, lm, ls, ds, zc, dy, mn, yr);
     let sr = (sun_long(lh, lm, ls, ds, zc, dy, mn, yr)).to_radians();
     let re = sun_dist(lh, lm, ls, ds, zc, dy, mn, yr);
-    let lg = sr + std::f64::consts::PI;
+    let lg = sr + core::f64::consts::PI;
 
     let mut l0 = 0.0;
     let _v0 = 0.0;
@@ -3087,7 +3092,7 @@ pub fn planet_coordinates(
     // let mut ep = 0.0;
     let ep: f64;
     if ip < 3 {
-        ep = (-1.0 * rd * l1 / (re - rd * l2)).atan() + lg + std::f64::consts::PI;
+        ep = (-1.0 * rd * l1 / (re - rd * l2)).atan() + lg + core::f64::consts::PI;
     } else {
         ep = (re * l1 / (rd - re * l2)).atan() + pd
     }
@@ -5369,7 +5374,7 @@ pub fn lunar_eclipse_occurrence_l6855(t: f64, k: f64) -> (f64, f64, f64, f64, f6
 ///
 /// Original macro name: UTMaxLunarEclipse
 pub fn ut_max_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i32) -> f64 {
-    let tp = 2.0 * std::f64::consts::PI;
+    let tp = 2.0 * core::f64::consts::PI;
 
     if lunar_eclipse_occurrence(ds, zc, dy, mn, yr) == "No lunar eclipse" {
         return -99.0;
@@ -5413,7 +5418,7 @@ pub fn ut_max_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i32) -> f64 
     let rr = sun_dist(ut, 0.0, 0.0, 0, 0, igday, gmonth, gyear);
     let sr = (sun_long(ut, 0.0, 0.0, 0, 0, igday, gmonth, gyear)).to_radians();
     let sr = sr + (nutat_long(igday, gmonth, gyear) - 0.00569).to_radians();
-    let sr = sr + std::f64::consts::PI - lint((sr + std::f64::consts::PI) / tp) * tp;
+    let sr = sr + core::f64::consts::PI - lint((sr + core::f64::consts::PI) / tp) * tp;
     let by = by - q;
     let bz = bz - q;
     let p3 = 0.00004263;
@@ -5446,7 +5451,7 @@ pub fn ut_max_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i32) -> f64 
 ///
 /// Original macro name: UTFirstContactLunarEclipse
 pub fn ut_first_contact_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i32) -> f64 {
-    let tp = 2.0 * std::f64::consts::PI;
+    let tp = 2.0 * core::f64::consts::PI;
 
     if lunar_eclipse_occurrence(ds, zc, dy, mn, yr) == "No lunar eclipse" {
         return -99.0;
@@ -5490,7 +5495,7 @@ pub fn ut_first_contact_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i3
     let rr = sun_dist(ut, 0.0, 0.0, 0, 0, igday, gmonth, gyear);
     let sr = (sun_long(ut, 0.0, 0.0, 0, 0, igday, gmonth, gyear)).to_radians();
     let sr = sr + (nutat_long(igday, gmonth, gyear) - 0.00569).to_radians();
-    let sr = sr + std::f64::consts::PI - lint((sr + std::f64::consts::PI) / tp) * tp;
+    let sr = sr + core::f64::consts::PI - lint((sr + core::f64::consts::PI) / tp) * tp;
     let by = by - q;
     let bz = bz - q;
     let p3 = 0.00004263;
@@ -5530,7 +5535,7 @@ pub fn ut_first_contact_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i3
 ///
 /// Original macro name: UTLastContactLunarEclipse
 pub fn ut_last_contact_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i32) -> f64 {
-    let tp = 2.0 * std::f64::consts::PI;
+    let tp = 2.0 * core::f64::consts::PI;
 
     if lunar_eclipse_occurrence(ds, zc, dy, mn, yr) == "No lunar eclipse" {
         return -99.0;
@@ -5574,7 +5579,7 @@ pub fn ut_last_contact_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i32
     let rr = sun_dist(ut, 0.0, 0.0, 0, 0, igday, gmonth, gyear);
     let sr = (sun_long(ut, 0.0, 0.0, 0, 0, igday, gmonth, gyear)).to_radians();
     let sr = sr + (nutat_long(igday, gmonth, gyear) - 0.00569).to_radians();
-    let sr = sr + std::f64::consts::PI - lint((sr + std::f64::consts::PI) / tp) * tp;
+    let sr = sr + core::f64::consts::PI - lint((sr + core::f64::consts::PI) / tp) * tp;
     let by = by - q;
     let bz = bz - q;
     let p3 = 0.00004263;
@@ -5611,7 +5616,7 @@ pub fn ut_last_contact_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i32
 ///
 /// Original macro name: UTStartUmbraLunarEclipse
 pub fn ut_start_umbra_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i32) -> f64 {
-    let tp = 2.0 * std::f64::consts::PI;
+    let tp = 2.0 * core::f64::consts::PI;
 
     if lunar_eclipse_occurrence(ds, zc, dy, mn, yr) == "No lunar eclipse" {
         return -99.0;
@@ -5655,7 +5660,7 @@ pub fn ut_start_umbra_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i32)
     let rr = sun_dist(ut, 0.0, 0.0, 0, 0, igday, gmonth, gyear);
     let sr = (sun_long(ut, 0.0, 0.0, 0, 0, igday, gmonth, gyear)).to_radians();
     let sr = sr + (nutat_long(igday, gmonth, gyear) - 0.00569).to_radians();
-    let sr = sr + std::f64::consts::PI - lint((sr + std::f64::consts::PI) / tp) * tp;
+    let sr = sr + core::f64::consts::PI - lint((sr + core::f64::consts::PI) / tp) * tp;
     let by = by - q;
     let bz = bz - q;
     let p3 = 0.00004263;
@@ -5713,7 +5718,7 @@ pub fn ut_start_umbra_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i32)
 ///
 /// Original macro name: UTEndUmbraLunarEclipse
 pub fn ut_end_umbra_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i32) -> f64 {
-    let tp = 2.0 * std::f64::consts::PI;
+    let tp = 2.0 * core::f64::consts::PI;
 
     if lunar_eclipse_occurrence(ds, zc, dy, mn, yr) == "No lunar eclipse" {
         return -99.0;
@@ -5757,7 +5762,7 @@ pub fn ut_end_umbra_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i32) -
     let rr = sun_dist(ut, 0.0, 0.0, 0, 0, igday, gmonth, gyear);
     let sr = (sun_long(ut, 0.0, 0.0, 0, 0, igday, gmonth, gyear)).to_radians();
     let sr = sr + (nutat_long(igday, gmonth, gyear) - 0.00569).to_radians();
-    let sr = sr + std::f64::consts::PI - lint((sr + std::f64::consts::PI) / tp) * tp;
+    let sr = sr + core::f64::consts::PI - lint((sr + core::f64::consts::PI) / tp) * tp;
     let by = by - q;
     let bz = bz - q;
     let p3 = 0.00004263;
@@ -5811,7 +5816,7 @@ pub fn ut_end_umbra_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i32) -
 ///
 /// Original macro name: UTStartTotalLunarEclipse
 pub fn ut_start_total_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i32) -> f64 {
-    let tp = 2.0 * std::f64::consts::PI;
+    let tp = 2.0 * core::f64::consts::PI;
 
     if lunar_eclipse_occurrence(ds, zc, dy, mn, yr) == "No lunar eclipse" {
         return -99.0;
@@ -5855,7 +5860,7 @@ pub fn ut_start_total_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i32)
     let rr = sun_dist(ut, 0.0, 0.0, 0, 0, igday, gmonth, gyear);
     let sr = (sun_long(ut, 0.0, 0.0, 0, 0, igday, gmonth, gyear)).to_radians();
     let sr = sr + (nutat_long(igday, gmonth, gyear) - 0.00569).to_radians();
-    let sr = sr + std::f64::consts::PI - lint((sr + std::f64::consts::PI) / tp) * tp;
+    let sr = sr + core::f64::consts::PI - lint((sr + core::f64::consts::PI) / tp) * tp;
     let by = by - q;
     let bz = bz - q;
     let p3 = 0.00004263;
@@ -5930,7 +5935,7 @@ pub fn ut_start_total_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i32)
 ///
 /// Original macro name: UTEndTotalLunarEclipse
 pub fn ut_end_total_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i32) -> f64 {
-    let tp = 2.0 * std::f64::consts::PI;
+    let tp = 2.0 * core::f64::consts::PI;
 
     if lunar_eclipse_occurrence(ds, zc, dy, mn, yr) == "No lunar eclipse" {
         return -99.0;
@@ -5974,7 +5979,7 @@ pub fn ut_end_total_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i32) -
     let rr = sun_dist(ut, 0.0, 0.0, 0, 0, igday, gmonth, gyear);
     let sr = (sun_long(ut, 0.0, 0.0, 0, 0, igday, gmonth, gyear)).to_radians();
     let sr = sr + (nutat_long(igday, gmonth, gyear) - 0.00569).to_radians();
-    let sr = sr + std::f64::consts::PI - lint((sr + std::f64::consts::PI) / tp) * tp;
+    let sr = sr + core::f64::consts::PI - lint((sr + core::f64::consts::PI) / tp) * tp;
     let by = by - q;
     let bz = bz - q;
     let p3 = 0.00004263;
@@ -6044,7 +6049,7 @@ pub fn ut_end_total_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i32) -
 ///
 /// Original macro name: MagLunarEclipse
 pub fn mag_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i32) -> f64 {
-    let tp = 2.0 * std::f64::consts::PI;
+    let tp = 2.0 * core::f64::consts::PI;
 
     if lunar_eclipse_occurrence(ds, zc, dy, mn, yr) == "No lunar eclipse" {
         return -99.0;
@@ -6088,7 +6093,7 @@ pub fn mag_lunar_eclipse(dy: f64, mn: u32, yr: u32, ds: i32, zc: i32) -> f64 {
     let rr = sun_dist(ut, 0.0, 0.0, 0, 0, igday, gmonth, gyear);
     let sr = (sun_long(ut, 0.0, 0.0, 0, 0, igday, gmonth, gyear)).to_radians();
     let sr = sr + (nutat_long(igday, gmonth, gyear) - 0.00569).to_radians();
-    let sr = sr + std::f64::consts::PI - lint((sr + std::f64::consts::PI) / tp) * tp;
+    let sr = sr + core::f64::consts::PI - lint((sr + core::f64::consts::PI) / tp) * tp;
     let by = by - q;
     let bz = bz - q;
     let p3 = 0.00004263;
@@ -6239,7 +6244,7 @@ pub fn ut_max_solar_eclipse(
     glong: f64,
     glat: f64,
 ) -> f64 {
-    let tp = 2.0 * std::f64::consts::PI;
+    let tp = 2.0 * core::f64::consts::PI;
 
     if solar_eclipse_occurrence(ds, zc, dy, mn, yr) == "No solar eclipse" {
         return -99.0;
@@ -6440,7 +6445,7 @@ pub fn ut_first_contact_solar_eclipse(
     glong: f64,
     glat: f64,
 ) -> f64 {
-    let tp = 2.0 * std::f64::consts::PI;
+    let tp = 2.0 * core::f64::consts::PI;
 
     if solar_eclipse_occurrence(ds, zc, dy, mn, yr) == "No solar eclipse" {
         return -99.0;
@@ -6639,7 +6644,7 @@ pub fn ut_last_contact_solar_eclipse(
     glong: f64,
     glat: f64,
 ) -> f64 {
-    let tp = 2.0 * std::f64::consts::PI;
+    let tp = 2.0 * core::f64::consts::PI;
 
     if solar_eclipse_occurrence(ds, zc, dy, mn, yr) == "No solar eclipse" {
         return -99.0;
@@ -6840,7 +6845,7 @@ pub fn mag_solar_eclipse(
     glong: f64,
     glat: f64,
 ) -> f64 {
-    let tp = 2.0 * std::f64::consts::PI;
+    let tp = 2.0 * core::f64::consts::PI;
 
     if solar_eclipse_occurrence(ds, zc, dy, mn, yr) == "No solar eclipse" {
         return -99.0;

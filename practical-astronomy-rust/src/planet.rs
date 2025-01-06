@@ -2,6 +2,11 @@ use crate::macros as pa_m;
 use crate::planetdata as pa_pd;
 use crate::util as pa_u;
 
+use alloc::string::String;
+use alloc::string::ToString;
+use alloc::vec::Vec;
+use core_maths::CoreFloat;
+
 /// Calculate approximate position of a planet.
 ///
 /// ## Arguments
@@ -92,11 +97,11 @@ pub fn approximate_position_of_planet(
     let np_deg2 = np_deg1 - 360.0 * (np_deg1 / 360.0).floor();
     let mp_deg = np_deg2 + planet_long_from_table - planet_peri_from_table;
     let lp_deg1 = np_deg2
-        + (360.0 * planet_ecc_from_table * mp_deg.to_radians().sin() / std::f64::consts::PI)
+        + (360.0 * planet_ecc_from_table * mp_deg.to_radians().sin() / core::f64::consts::PI)
         + planet_long_from_table;
     let lp_deg2 = lp_deg1 - 360.0 * (lp_deg1 / 360.0).floor();
     let planet_true_anomaly_deg = lp_deg2 - planet_peri_from_table;
-    let r_au = planet_axis_from_table * (1.0 - num::pow(planet_ecc_from_table, 2))
+    let r_au = planet_axis_from_table * (1.0 - planet_ecc_from_table.powi(2))
         / (1.0 + planet_ecc_from_table * planet_true_anomaly_deg.to_radians().cos());
 
     let (earth_info, _earth_info_status) = pa_pd::get_planet_info_vector("Earth".to_string());
@@ -112,10 +117,10 @@ pub fn approximate_position_of_planet(
     let me_deg = ne_deg2 + earth_long_from_table - earth_peri_from_table;
     let le_deg1 = ne_deg2
         + earth_long_from_table
-        + 360.0 * earth_ecc_from_table * me_deg.to_radians().sin() / std::f64::consts::PI;
+        + 360.0 * earth_ecc_from_table * me_deg.to_radians().sin() / core::f64::consts::PI;
     let le_deg2 = le_deg1 - 360.0 * (le_deg1 / 360.0).floor();
     let earth_true_anomaly_deg = le_deg2 - earth_peri_from_table;
-    let r_au2 = earth_axis_from_table * (1.0 - num::pow(earth_ecc_from_table, 2))
+    let r_au2 = earth_axis_from_table * (1.0 - (earth_ecc_from_table.powi(2)))
         / (1.0 + earth_ecc_from_table * earth_true_anomaly_deg.to_radians().cos());
     let lp_node_rad = (lp_deg2 - planet_node_from_table).to_radians();
     let psi_rad = ((lp_node_rad).sin() * planet_incl_from_table.to_radians().sin()).asin();

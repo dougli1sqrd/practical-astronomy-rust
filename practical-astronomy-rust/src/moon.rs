@@ -1,6 +1,10 @@
 use crate::macros as pa_m;
 use crate::util as pa_u;
 
+use alloc::string::String;
+use alloc::string::ToString;
+use core_maths::CoreFloat;
+
 /// Calculate approximate position of the Moon.
 ///
 /// ## Arguments

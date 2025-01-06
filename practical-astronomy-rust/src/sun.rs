@@ -2,6 +2,10 @@ use crate::macros as pa_m;
 use crate::types as pa_t;
 use crate::util as pa_u;
 
+use alloc::string::String;
+use alloc::string::ToString;
+use core_maths::CoreFloat;
+
 /// Calculate approximate position of the sun for a local date and time.
 ///
 /// ## Arguments
@@ -84,7 +88,7 @@ pub fn approximate_position_of_sun(
     let m_deg1 = n_deg + pa_m::sun_e_long(0 as f64, 1, 2010) - pa_m::sun_peri(0 as f64, 1, 2010);
     let m_deg2 = m_deg1 - 360.0 * (m_deg1 / 360.0).floor();
     let e_c_deg =
-        360.0 * pa_m::sun_ecc(0 as f64, 1, 2010) * m_deg2.to_radians().sin() / std::f64::consts::PI;
+        360.0 * pa_m::sun_ecc(0 as f64, 1, 2010) * m_deg2.to_radians().sin() / core::f64::consts::PI;
     let l_s_deg1 = n_deg + e_c_deg + pa_m::sun_e_long(0 as f64, 1, 2010);
     let l_s_deg2 = l_s_deg1 - 360.0 * (l_s_deg1 / 360.0).floor();
     let ra_deg = pa_m::ec_ra(

@@ -1,6 +1,10 @@
 use crate::macros as pa_m;
 use crate::util as pa_u;
 
+use alloc::string::String;
+use alloc::string::ToString;
+use core_maths::CoreFloat;
+
 /// Convert an Angle (degrees, minutes, and seconds) to Decimal Degrees.
 pub fn angle_to_decimal_degrees(degrees: f64, minutes: f64, seconds: f64) -> f64 {
     let a = seconds.abs() / 60.0;

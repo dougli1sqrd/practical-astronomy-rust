@@ -1,3 +1,7 @@
+use alloc::string::String;
+use alloc::string::ToString;
+use alloc::vec::Vec;
+
 /// Info about a comet (elliptical):
 /// * `name` -- Name of comet.
 /// * `epoch` -- Epoch of the perihelion.

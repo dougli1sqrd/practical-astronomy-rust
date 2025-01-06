@@ -1,6 +1,9 @@
 use crate::macros as pa_m;
 use crate::util as pa_u;
 
+use alloc::string::String;
+use core_maths::CoreFloat;
+
 /// Determine if a lunar eclipse is likely to occur.
 ///
 /// ## Arguments

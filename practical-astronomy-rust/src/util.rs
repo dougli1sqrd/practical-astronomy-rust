@@ -1,3 +1,5 @@
+use alloc::format;
+
 /// Determine if year is a leap year.
 ///
 /// ## Arguments

@@ -2,6 +2,11 @@ use crate::cometdata as pa_c;
 use crate::macros as pa_m;
 use crate::util as pa_u;
 
+use alloc::string::String;
+use alloc::string::ToString;
+use alloc::vec::Vec;
+use core_maths::CoreFloat;
+
 /// Calculate position of an elliptical comet.
 ///
 /// ## Arguments
@@ -153,7 +158,7 @@ pub fn position_of_elliptical_comet(
         greenwich_date_month,
         greenwich_date_year,
     );
-    let comet_distance_au = (num::pow(earth_radius_vector_au, 2) + num::pow(r_au, 2)
+    let comet_distance_au = (earth_radius_vector_au.powi(2) + r_au.powi(2)
         - 2.0
             * earth_radius_vector_au
             * r_au
